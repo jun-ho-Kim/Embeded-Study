@@ -1,0 +1,8 @@
+﻿  12.16_calloc_realloc.c
+C:\Users\wnsgh\source\repos\Project1\Project1\chapter12\12.16_calloc_realloc.c(1,1): warning C4005: '_CRT_SECURE_NO_WARNINGS': 매크로 재정의
+C:\Users\wnsgh\source\repos\Project1\Project1\chapter12\12.16_calloc_realloc.c(1,1): message : 이전에 명령줄에서 선언된 '_CRT_SECURE_NO_WARNINGS'
+C:\Users\wnsgh\source\repos\Project1\Project1\chapter12\12.16_calloc_realloc.c(36,9): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'int *'입니다.
+C:\Users\wnsgh\source\repos\Project1\Project1\chapter12\12.16_calloc_realloc.c(36,9): warning C4313: 'printf': 서식 문자열의 '%d'이(가) int *' 형식의 인수 1과(와) 충돌합니다.
+C:\Users\wnsgh\source\repos\Project1\Project1\chapter12\12.16_calloc_realloc.c(36,9): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 2의 형식이 'int *'입니다.
+C:\Users\wnsgh\source\repos\Project1\Project1\chapter12\12.16_calloc_realloc.c(36,9): warning C4313: 'printf': 서식 문자열의 '%d'이(가) int *' 형식의 인수 2과(와) 충돌합니다.
+  Project1.vcxproj -> C:\Users\wnsgh\source\repos\Project1\x64\Debug\Project1.exe
