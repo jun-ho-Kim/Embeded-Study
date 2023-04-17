@@ -15,8 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\Cprogramming5.dev">
+    <ClCompile Include="main.c">
       <Filter>소스 파일</Filter>
-    </None>
+    </ClCompile>
+    <ClCompile Include="po.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="po.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
