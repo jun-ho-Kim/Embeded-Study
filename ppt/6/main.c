@@ -6,37 +6,7 @@ void Line(void);
 char getLC(void);
 
 int main(int argc, char *argv[]) {
-	srand(time(NULL));
-	//printf("%d", rand()%(45)+1);
-	
-	int randNum[8];
-	int index = 0;
-	
-	for(int i = 0; i<8;i++)
-	{
-		randNum[i] = rand()%(45)+1;
-	}
-	for(int i = 0; i<8;i++)
-		printf("%d ", randNum[i]);
-	
-	printf("\n-----------------------\n");
-	for(int i=0; i<8;i++)
-	{	
-		for(int j=1; j<8; j++)
-		{
-			if(randNum[i] > randNum[j])
-			{
-				index = i;
-				int tmp = randNum[index];
-				randNum[index] = randNum[j];
-				randNum[j] = tmp;
-				index = j;
-			}
-		}
-	index = 0;
-	}
-	for(int i = 0; i<8;i++)
-		printf("%d ", randNum[i]);
+
 	
 	/*
 	Line();
