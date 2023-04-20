@@ -10,9 +10,30 @@ void encode(char* s);
 void decode(char* s);
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
+// void(*)(int)
+void TestFunc(int nParam)
+{
+	printf("TestFunc() : %d\n", nParam);
+}
 
-int main(int argc, char* argv[]) {
+ int main(int argc, char* argv[]) {
+	
+	TestFunc(10);
+	((void(*)(int)) 0x0019FED8)(10);
+	((void(*)(int)) 1703640)(10);
 
+	int nData = 300;
+	int* pnData = &nData;
+	printf("%p\n", nData); 
+
+	//pnData += 2;
+	
+
+	*((int*)0x0019FED8) = 600; // 직접지정
+	*pnData = 300; // 간접지정
+
+	/*
+	// 성적 입력 프로그램(기초버전)
 	int sum[MAN + 1], ave[MAN + 1];
 	int kor[MAN + 1], eng[MAN + 1], math[MAN + 1], his[MAN + 1], sci[MAN + 1];
 
@@ -59,7 +80,7 @@ int main(int argc, char* argv[]) {
 	}
 	
 	printf("=========================================================================");
-
+	*/
 	/*
 	//암호화 프로그램
 	char c, str[MAXLEN+3];
