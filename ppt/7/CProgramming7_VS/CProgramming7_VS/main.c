@@ -16,8 +16,12 @@ void TestFunc(int nParam)
 	printf("TestFunc() : %d\n", nParam);
 }
 
- int main(int argc, char* argv[]) {
-	
+		 int main(int argc, char* argv[]) {
+	 int c = 4;
+	 double* c_ptr = &c;
+	 printf("C pointer value is %d\n", *c_ptr); // b pointer value is 2.0
+
+	/*
 	TestFunc(10);
 	((void(*)(int)) 0x0019FED8)(10);
 	((void(*)(int)) 1703640)(10);
@@ -25,13 +29,13 @@ void TestFunc(int nParam)
 	int nData = 300;
 	int* pnData = &nData;
 	printf("%p\n", nData); 
-
+	
 	//pnData += 2;
 	
 
 	*((int*)0x0019FED8) = 600; // 직접지정
 	*pnData = 300; // 간접지정
-
+	*/
 	/*
 	// 성적 입력 프로그램(기초버전)
 	int sum[MAN + 1], ave[MAN + 1];
