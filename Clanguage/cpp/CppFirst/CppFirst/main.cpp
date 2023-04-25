@@ -1,0 +1,7 @@
+
+
+int main() {
+	student::student() {
+
+	}
+}
