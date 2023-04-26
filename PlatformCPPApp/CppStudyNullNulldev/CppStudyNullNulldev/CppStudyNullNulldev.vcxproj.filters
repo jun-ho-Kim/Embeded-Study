@@ -18,7 +18,16 @@
     <ClCompile Include="CppStudyNullNulldev.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="2.FunctionAndNameSpace.cpp">
+    <ClCompile Include="2.1_FunctionAndNameSpace.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="2.2_FunctionAndNameSpace.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="2.3FunctionAndNameSpace.cpp.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="3.1_Class_1.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
