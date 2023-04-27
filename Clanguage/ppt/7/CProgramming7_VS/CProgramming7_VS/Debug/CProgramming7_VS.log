@@ -1,4 +1,0 @@
-﻿  main.c
-C:\work\ppt\7\CProgramming7_VS\CProgramming7_VS\main.c(22,10): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'double'입니다.
-C:\work\ppt\7\CProgramming7_VS\CProgramming7_VS\main.c(21,1): warning C4133: '초기화 중': 'int *'과(와) 'double *' 사이의 형식이 호환되지 않습니다.
-  CProgramming7_VS.vcxproj -> C:\work\ppt\7\CProgramming7_VS\Debug\CProgramming7_VS.exe
