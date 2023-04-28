@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33529.622
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyoungpoumCpp", "MyoungpoumCpp\MyoungpoumCpp.vcxproj", "{03364506-C6E0-4120-AF2B-0F41B4F29010}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03364506-C6E0-4120-AF2B-0F41B4F29010}.Debug|x64.ActiveCfg = Debug|x64
+		{03364506-C6E0-4120-AF2B-0F41B4F29010}.Debug|x64.Build.0 = Debug|x64
+		{03364506-C6E0-4120-AF2B-0F41B4F29010}.Debug|x86.ActiveCfg = Debug|Win32
+		{03364506-C6E0-4120-AF2B-0F41B4F29010}.Debug|x86.Build.0 = Debug|Win32
+		{03364506-C6E0-4120-AF2B-0F41B4F29010}.Release|x64.ActiveCfg = Release|x64
+		{03364506-C6E0-4120-AF2B-0F41B4F29010}.Release|x64.Build.0 = Release|x64
+		{03364506-C6E0-4120-AF2B-0F41B4F29010}.Release|x86.ActiveCfg = Release|Win32
+		{03364506-C6E0-4120-AF2B-0F41B4F29010}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A81A52B0-0900-446A-A1B0-608CC50B78F6}
+	EndGlobalSection
+EndGlobal
