@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <array>
+#include <tuple>
+
 using namespace std;
 
 int getValue(int x)
@@ -34,6 +36,23 @@ int& get(std::array<int, 100>& my_array, int ix)
 	return my_array[ix];
 }
 
+struct S
+{
+	int a, b, c, d;
+};
+
+//S getStrct()
+//{
+//	S my_s{ 1,2,3,4 };
+//}
+
+std::tuple<int, double> getTuple() // 사용자 정의 자료형과 같다.
+{
+	int a = 10;
+	double d = 3.14;
+	return std::make_tuple(a, d);
+}
+
 int main()
 {
 	// 값에 의한 리턴
@@ -64,6 +83,22 @@ int main()
 
 	get(my_array, 30) = 1024;
 	cout << my_array[30] << endl; // 1024
-	x = 5;
+
+	// 여러 개를 리턴하고 싶은 경우
+	// 함수 하나를 만들 때 마다 구조체를 하나 씩 만들어 주어야 한다. 그러면 구현 오버로드가 크다.
+	// 옛날 라이브러리는 내부에 구조체를 많이 생성하여 사용하였다.
+	//S my_s = getStrct();
+	//my_s.b;
+
+	// 튜플을 사용
+	std::tuple<int, double> my_tp = getTuple();
+	cout << std::get<0>(my_tp) << endl;	// 10
+	cout << std::get<1>(my_tp) << endl; // 3
+
+	// c++17 버전부터 이용가능
+	auto [a, d] = getTuple();
+	cout << a << endl;
+	cout << d << endl;
+
 	return 0;
 }
