@@ -13,6 +13,8 @@ int main(int argc, char *argv[]) {
 	int i, temp;
 	char name[6][20];
 	int score[5][5];
+	int sum[5] = {0,};
+	int avg[5] = {0,};
 	char buffer[1024];
 	char* p;
 	/*
@@ -78,12 +80,15 @@ int main(int argc, char *argv[]) {
 			fgets(buffer, 1024, fp);
 			printf("%s\n", buffer);
 			p = strtok(buffer, ",");
-			*name[i] = strtok(NULL, ",");
+			strcpy(name[i], strtok(NULL, ","));
 			printf("name %d is %c\n", i, *name[i]);
 			for (int j = 0; j < 5; j++)
 			{
 				p = strtok(NULL, ",");
-				score[i][j] = atoi(p);
+				if(i!=0) 
+					score[i][j] = atoi(p);
+				 else
+				 	score[i][j] = p;
 				printf("p is is %s\n", p);
 				printf("score %d %d is is %s\n", i, j, p);
 			}
@@ -94,8 +99,16 @@ int main(int argc, char *argv[]) {
 		printf("-------------------\n");
 	  for(i=0; i<5;i++)
 	 { 
-	 	printf("%2d %4d %4d %4d %4d %4d \n",
-	       i, score[i][0],score[i][1],score[i][2],score[i][3],score[i][4]);
+		printf("%2d, %s, %4d, %4d, %4d, %4d, %4d, %4d, %4d \n",
+	    i, &name[i], score[i][0],score[i][1],score[i][2],score[i][3],score[i][4], sum[i], avg[i]);
+
+	 	for(int j = 0; j<5;j++)
+	 	{
+	 		sum[i]+=score[i][j];
+		}
+	 	avg[i] = sum[i]/5;
+	 	//printf("%2d, %s %4d %4d %4d %4d %4d \n",
+	    //   i, name[i], score[i][0],score[i][1],score[i][2],score[i][3],score[i][4]);
 	 }
 	
 	//fgets(str, sizeof(str), fp);
@@ -112,17 +125,17 @@ int main(int argc, char *argv[]) {
 	
 	fclose(fp);
 	
-	//fpw = fopen("result.csv", "w+");
-	//for (int i =0; i<5;i++)
-	//{
-	//	for (int j = 0; j < 5; j++)
-	//	{
-	//		fputs(score[i][j], fpw);
-	//	}
-	//
-
-	//}
-	//fclose(fpw);
+	fp = fopen("result.csv", "w+");
 	
+	printf("score size is %d", sizeof(score[0][1]));
+	//fpw = fopen("result.csv", "w+");
+	fprintf(fp,"번호, 이름, 국어, 수학, 영어, 과학, 사회, 총점, 평균 \n");
+	for (int i =0; i<5;i++)
+	{
+		fprintf(fp, "%2d, %s, %4d, %4d, %4d, %4d, %4d, %4d, %4d \n",
+	       i, &name[i], score[i][0],score[i][1],score[i][2],score[i][3],score[i][4], sum[i], avg[i]);
+	}
+	//fclose(fpw);
+	fclose(fp);
 	return 0;
 }

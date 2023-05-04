@@ -28,7 +28,6 @@ int main(int argc, char* argv[])
  char *p;
  while(i<6)
  {
- 	
  	printf("i is %d: ", i);
  	fgets(buff, 1024, exfp);
  	p = buff.strtok(NULL, ",");
