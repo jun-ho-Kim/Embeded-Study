@@ -36,6 +36,7 @@ int main()
 	//char words[STRLEN] = "";
 	//fgets(words, STRLEN, stdin); // does NOT remove \n
 
+
 	// TODO: replace '\n' with '\0'
 	//int i = 0;
 	//while (words[i] != '\n' && words[i] != '\0')
@@ -63,9 +64,9 @@ int main()
 		//puts(small_array); // What if we use puts()
 
 	//char str1[6], str2[6];
-	//int count = scanf("%5s %5s", str1, str2);
-	//int count = scanf("%6s %6s", str1, str2); // run-time error
-	//int count = scanf_s("%5s %5s", str1, 6, str2, 6);
+	//int count = scanf("%5s %5s", str1, str2); // 5글자씩 받음
+	//int count = scanf("%6s %6s", str1, str2); // run-time error // null charater를 제외하고 5글자를 입력 받아야함
+	//int count = scanf_s("%5s %5s", str1, 6, str2, 6); // 문제 없이 사용 가능
 	//printf("%s|%s \n", str1, str2);
 
 	/* An example of custom input function */
@@ -95,3 +96,26 @@ char* custom_string_input(char* st, int n)
 
 	return ret_ptr;
 }
+
+/*
+- scanf로 string 배열을 입력 받을 때 인자에 &를 안 붙여도 됨
+- 입력을 받기 위해서 입력 받은 데이터를 저장할 공간을 미리 확보를 하고 그 공간에 입력을 받아야만 올바르게 입력 받고 사용할 수 있다.
+
+scanf에서는 한 단어만 읽을 수 밖에 없는데 gets는 한 줄을 한 번에 읽을 수 있다.
+ㄴ gets는 enter를 입력받는 순간 buffer에 있는 내용을 gets라는 함수가 읽어들이는데 \n를 제거하고 \0을 추가해준다.
+
+gets - 포인터 이름을 인자로 넣어준다.
+gets - 시작 지점만 알고 끝 지점을 알지 못한다.
+
+gets 할당해준 문자열 크기보다 입력해준 크기가 크면 런타임 에러 발생
+ㄴ 이 문제를 해결하기 위해 fgets fputs함수를 사용해보자.
+
+fgets 함수는 \n 를 제거해주지 않는다.
+파일 입출력해에서는 좋은 성질이다. 하지면 표준 입출력해서는 불편할 수 있다.
+- fputs도 \n을 추가해주지 않는다.
+
+- fgets함수는 지정된 크기보다 크게 지정해도 런타임에러가 발생하지 않고 지정된 크기만큼 입력값을 받아서 출력한다.
+ㄴ 정상적으로 입력받았으면 입력받은 포인터를 반환해주고 문제가 생기는 경우(EOF을 만난 경우 - Null Character를 리턴 받는다.)
+
+
+*/

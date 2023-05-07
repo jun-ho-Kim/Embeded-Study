@@ -76,5 +76,6 @@ int main()
 	printf("%f\n", ap[1][3]);
 	printf("%f\n", *(*(ap + 1) + 3));
 
+	int x = 4;
 	return 0;
 }

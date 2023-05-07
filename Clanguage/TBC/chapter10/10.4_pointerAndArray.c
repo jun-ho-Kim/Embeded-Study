@@ -12,11 +12,11 @@ int main()
 
 	int* ptr = arr;
 
-	printf("%p %p %p\n", ptr, arr, &arr[0]);
+	printf("%p %p %p\n", ptr, arr, &arr[0]); // 000000F2A58FFAB8 000000F2A58FFAB8 000000F2A58FFAB8 
 
 	ptr += 2;
 
-	printf("%p %p %p\n", ptr, arr + 2, &arr[2]);
+	printf("%p %p %p\n", ptr, arr + 2, &arr[2]); // 000000F2A58FFAC0 000000F2A58FFAC0 000000F2A58FFAC0
 
 	// Note: arr += 2 // invalid // 배열의 이름이 포인터처럼 사용될 수 있지만 포인터와 완전히 동일하지 않는다.
 	

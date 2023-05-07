@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
-
 int main(int argc, char *argv[]) {
 	
 	FILE *fp, * fpw;
@@ -73,8 +71,6 @@ int main(int argc, char *argv[]) {
 		exit(-1);
 	}
 
-		//while (!feof(fp))
-		//{
 	for(int i=0; i<5; i++)
 	{
 			fgets(buffer, 1024, fp);
@@ -89,10 +85,9 @@ int main(int argc, char *argv[]) {
 					score[i][j] = atoi(p);
 				 else
 				 	score[i][j] = p;
-				printf("p is is %s\n", p);
+				printf("p is %d\n", p);
 				printf("score %d %d is is %s\n", i, j, p);
 			}
-
 		}
 		
 	//}
@@ -129,9 +124,11 @@ int main(int argc, char *argv[]) {
 	
 	printf("score size is %d", sizeof(score[0][1]));
 	//fpw = fopen("result.csv", "w+");
+	//fputs(score[3][1], fp);
 	fprintf(fp,"번호, 이름, 국어, 수학, 영어, 과학, 사회, 총점, 평균 \n");
-	for (int i =0; i<5;i++)
+	for (int i =1; i<5;i++)
 	{
+		//fputc(score[i][0], fp);
 		fprintf(fp, "%2d, %s, %4d, %4d, %4d, %4d, %4d, %4d, %4d \n",
 	       i, &name[i], score[i][0],score[i][1],score[i][2],score[i][3],score[i][4], sum[i], avg[i]);
 	}
