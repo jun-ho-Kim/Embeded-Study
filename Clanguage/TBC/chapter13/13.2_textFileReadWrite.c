@@ -6,6 +6,7 @@ int main(int argc, char* argv[])
 {
 	int ch;
 	FILE* fr, * fw; //TODO: file pointer to write
+	//FILE* fr = 파일을 처리할 때 필요한 데이터의 묶음에 대한 포인터(구조체에 대한 포인터)
 	/*
 	typedef struc _iobuf
 	{
