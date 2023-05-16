@@ -119,19 +119,46 @@ int main()
 
 	*/
 
-	int radius;
-	int circleCnt;
+
+	// 예제 4.10 - 
+	cout << "생성하고자 하는 원의 개수? ";
+	int n, radius;
+	cin >> n;
+	if (n <= 0) return 0;
+	Circle* pArray = new Circle[n];
+	for (int i = 0; i < n; i++)
+	{
+		cout << "원" << i + 1 << ":";
+		cin >> radius;
+		pArray[i].setRadius(radius);
+	}
 	int count = 0;
+	for (int i = 0; i < n;i++) {
+		double circleArea =  pArray[i].getArea();
+		cout << "원의 면적은" <<  circleArea << endl;
+		if (circleArea >= 100 && circleArea <= 200)
+			count++;
+	}
+	cout << endl << "면적이 100애서 200 사이인 원의 개수는 " << count << endl;
+
+	/*
+	// 예제 4.10 - 내가 푼 문제
+	int radius;
+	int circleCnt = 0;
+	int maxCnt, count = 0;
 	cout << "입력받을 원의 개수를 적어주세요. >>";
-	cin >> circleCnt;
-	while (count < circleCnt)
+	cin >> maxCnt;
+	while (count < maxCnt)
 	{
 		cin >> radius;
 
 		if (radius < 0) break;
-
+		cout << "원의 넓이는" << endl;
 		if (radius >= 100 && radius <= 200)
-			++count;
+			++circleCnt;
+		count++;
 	}
+	cout << endl << "면적이 100애서 200 사이인 원의 개수는 " << circleCnt << endl;
+	*/
 
 }
