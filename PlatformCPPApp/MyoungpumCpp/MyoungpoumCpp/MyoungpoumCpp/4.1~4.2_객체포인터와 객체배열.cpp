@@ -3,9 +3,11 @@ using namespace std;
 
 class Circle {
 	int radius;
+	int test;
 public:
 	Circle() { radius = 1; }
 	Circle(int r) { radius = r; }
+	Circle(int r, int t) { radius = r; test = t; }
 	
 	void setRadius(int r) { radius = r; }
 	
@@ -20,10 +22,10 @@ double Circle::getArea()
 
 int main()
 {
-	/*
+	
 	// 예제 4.1
 	Circle donut;
-	Circle pizza(30);
+	Circle pizza(2, 4);
 
 	cout << donut.getArea() << endl; // 3.14
 
@@ -37,7 +39,7 @@ int main()
 	p = &pizza;
 	cout << p->getArea() << endl;	// 2826
 	cout << (*p).getArea() << endl; // 2826
-	*/
+	
 
 	/*
 	//예제 4.2
@@ -77,6 +79,8 @@ int main()
 	// Circle 2의 면적은 3.14
 	*/
 
+	/*
+	//예제 4.4
 	Circle circles[2][3];
 
 	circles[0][0].setRadius(1);
@@ -92,7 +96,13 @@ int main()
 		{
 			cout << "Circle [" << i << "," << j << "]의 면적은 ";
 			cout << circles[i][j].getArea() << endl;
-		}
 
-	int z = 3;
+			//Circle[0, 0]의 면적은 3.14
+			//Circle[0, 1]의 면적은 12.56
+			//Circle[0, 2]의 면적은 28.26
+			//Circle[1, 0]의 면적은 50.24
+			//Circle[1, 1]의 면적은 78.5
+			//Circle[1, 2]의 면적은 113.04
+		}
+	*/
 }
