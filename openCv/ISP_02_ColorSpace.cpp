@@ -99,6 +99,16 @@ int main()
 
 	float data[] = { 1,2,3,4,5,6 };
 	Mat mat4(2, 3, CV_32FC1, data);
+	//Mat mat5(Mat_<float>(2, 3) << 1, 2, 3, 4, 5, 6);
+	//Mat mat6(Mat_<uchar>{2, 3}, { 1, 2, 3, 4, 5, 6 });
+
+	cout << "mat4_1 address is" << &mat4 << endl;
+
+	mat4.create(256, 256, CV_8UC3);
+
+	cout << "mat4_2 address is" << &mat4 << endl;
+
+	Mat mat5(2, 3, CV_32FC1, data);
 
 	uchar* pData_R = img_R.data;
 	uchar* pData_G = img_G.data;
