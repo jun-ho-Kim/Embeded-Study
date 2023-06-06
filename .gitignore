@@ -433,3 +433,5 @@ FodyWeavers.xsd
 *.vcxproj
 
 !*.cpp
+PlatformCPPApp/Lib_circle/
+PlatformCPPApp/cpp_final_examp/
