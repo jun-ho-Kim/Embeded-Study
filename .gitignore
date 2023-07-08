@@ -431,7 +431,15 @@ FodyWeavers.xsd
 *.sln.iml
 *.filters
 *.vcxproj
-
+*.sln
+*.png
 !*.cpp
 PlatformCPPApp/Lib_circle/
 PlatformCPPApp/cpp_final_examp/
+opencv/thirdparty/
+opencv/Debug
+opencv/.vs
+비전과 AI머신러닝/
+코드비전테스트코드/
+python/
+intelAI
