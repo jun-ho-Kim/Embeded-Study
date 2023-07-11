@@ -3,7 +3,7 @@
 void contours_basic()
 {
 	string fileDir = "../thirdparty/opencv_470/sources/samples/data/";
-	string fileName = fileDir + "shapes.jpg";
+	string fileName = fileDir + "contours2.png";
 	Mat src = imread(fileName, IMREAD_GRAYSCALE);
 
 	if (src.empty())
@@ -15,7 +15,7 @@ void contours_basic()
 
 	vector<vector<Point>> contours;
 	vector<Vec4i> hierarchy;
-	findContours(src, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+	findContours(src, contours, hierarchy, RETR_CCOMP, CHAIN_APPROX_SIMPLE);
 
 	Mat dst;
 	cvtColor(src, dst, COLOR_GRAY2BGR);
@@ -24,6 +24,12 @@ void contours_basic()
 	{
 		Scalar c(rand() & 255, rand() & 255, rand() & 255);
 		drawContours(dst, contours, i, c, 2);
+	}
+
+	for (int idx = 0; idx >= 0; idx = hierarchy[idx][0])
+	{
+		Scalar c(rand() & 255, rand() & 255, rand() & 255);
+		drawContours(dst, contours, idx, c, -1, LINE_8, hierarchy);
 	}
 
 	imshow("src", src);
