@@ -9,50 +9,196 @@ int ReverseInt(int i);
 void ReadMNIST(int NumberOfImages, int DataOfAnImage, vector<vector<double>>& arr);
 void ReadMNISTLabel(vector<unsigned char>& arr);
 
+int resize_img(Mat& src, Mat& dst, Mat& resize_img);
 void MnistTrainingDataRead(std::string filePath, std::vector<cv::Mat>& vec, int readDataNum);
 void MnistLabelDataRead(std::string filePath, std::vector<uint8_t>& vec, int readDataNum);
 int ConvertCVGrayImageType(int magicNumber);
 void MatPrint(std::vector<cv::Mat>& trainingVec, std::vector<cv::uint8_t>& labelVec);
 
+
+// https://studyfield.tistory.com/659
+// https://givemesource.tistory.com/1?category=681642
 int main()
 {
+    int arr_num[10] = { 0, };
+
+
+
     vector<vector<double>> ai;
     vector<unsigned char> al;
     ReadMNIST(10000, 784, ai);                // 훈련데이터를 불러옴
     ReadMNISTLabel(al);                       // 레이블을 읽어 옴
 
-    printf("label is %d", ai[0]);
+    string fileDir = "D:/0.수업코드/비전과 AI머신러닝/mnist/";
+    string fileName = fileDir + "61.jpg";
 
-              
-    for (int i = 0; i < 784; i++)
-    {
-        if (i % 28 == 0)
-            printf("\n");
-        printf("%4.0f ", ai[0][i]);
 
-    }
-    printf("\n");
-    std::vector<cv::Mat> trainingVec;
-    //std::vector<uchar> labelVec;
-
-    MnistTrainingDataRead("train-images-idx3-ubyte", trainingVec, 10);
-    //MnistLabelDataRead("train-images-idx3-ubyte", labelVec, 10);
-    //MatPrint(trainingVec, labelVec);
-
-    Mat test = trainingVec[1];
+    Mat test = imread(fileName, IMREAD_GRAYSCALE);
     Mat test_bin;
     threshold(test, test_bin, 50, 255, THRESH_BINARY);
 
-    Mat im_floodfill = test_bin.clone();
-    floodFill(im_floodfill, cv::Point(0, 0), Scalar(255));
-    Mat im_floodfill_inv;
-    bitwise_not(im_floodfill, im_floodfill_inv);
-    Mat detect_img_R_fill = (test_bin | im_floodfill_inv);
+    string fileName_arr[10] = { "", };
+    int i;
+
+    fileDir = "D:/0.수업코드/비전과 AI머신러닝/mnist/origin_Img/";
+
+    for (i = 0; i < 10; i++)
+    {
+        char tmp[5];
+        _itoa_s(i, tmp, 10);
+        string fileName = (fileDir + tmp + ".jpg");
+        fileName_arr[i] = fileName;
+    }
+    int z = 3;
+
+    for (i = 0; i < 10; i++)
+    {
+        Mat ori_img = imread(fileName_arr[i], IMREAD_GRAYSCALE);
+
+        printf("label is %d", ai[0]);
+
+        //for (int i = 0; i < 784; i++)
+        //{
+        //    if (i % 28 == 0)
+        //        printf("\n");
+        //    printf("%4.0f ", ai[0][i]);
+
+        //}
+        printf("\n");
+        std::vector<cv::Mat> trainingVec;
+        //std::vector<uchar> labelVec;q
+        
+
+        //MnistTrainingDataRead("train-images-idx3-ubyte", trainingVec, 10);
+        //MnistLabelDataRead("train-images-idx3-ubyte", labelVec, 10);
+        //MatPrint(trainingVec, labelVec);
+
+        //Mat test = trainingVec[9]; 4
+
+
+        vector<vector<Point>> contours;
+        vector<Vec4i> hierarchy;
+
+        Mat draw_img = test.clone();
+        cvtColor(test, draw_img, COLOR_GRAY2BGR);
+
+        Mat test_dst;
+        Mat test_resize_img(50, 50, CV_8UC1);
+        resize_img(test_bin, test_dst, test_resize_img);
+
+
+        Mat ori_bin;
+        threshold(ori_img, ori_bin, 50, 255, THRESH_BINARY);
+        Mat ori_dst;
+        Mat ori_resize_img(50, 50, CV_8UC1);
+        resize_img(ori_bin, ori_dst, ori_resize_img); \
+
+            for (size_t row = 0; row < 50; row++)
+                for (size_t col = 0; col < 50; col++)
+                {
+                    int ori_data = ori_resize_img.data[int(row * 50 + col)];
+                    int test_data = test_resize_img.data[int(row * 50 + col)];
+                    if ((bool(ori_data) ==true) && (bool(test_data) == true))
+                    {
+                        arr_num[i] ++;
+                    }
+                }
+
+        /*
+        RNG rng(12345);
+        Rect roi;
+        findContours(test, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
+
+        RotatedRect ellipse = cv::fitEllipse(contours[0]);
+        Mat dst;
+        if (ellipse.angle < 90)
+        {
+            Mat M =  getRotationMatrix2D(ellipse.center, ellipse.angle ,1);
+            warpAffine(test_bin, dst, M, Size());
+        }
+        else
+            dst = test.clone();
+
+        threshold(dst, dst, 50, 255, THRESH_BINARY);
+        //Mat mat1 = Mat::ones(3, 3, CV_8UC1);
+        //Mat erode_mat;
+        //erode(dst, erode_mat, mat1);
+        //Mat dilate_mat;
+        //dilate(erode_mat, dst, mat1);
+
+        findContours(dst, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
+        roi = cv::boundingRect(contours[0]);
+        Scalar color = Scalar(rng.uniform(0, 256), rng.uniform(0, 256), rng.uniform(0, 256));
+        //drawContours(draw_img, contours, (int)i, color, 1, LINE_8, hierarchy, 0);
+
+        //RotatedRect r_rt = cv::minAreaRect(contours[0]);
+        //cv::rectangle(draw_img, r_rt.boundingRect(), Scalar(128, 128, 255));
+        //
+        //cv::ellipse(draw_img, ellipse, Scalar(0, 255, 0));
+        //cv::ellipse(draw_img, ellipse, Scalar(0, 255,255));
+        //uchar data1[] = { 1,1,1, 0,0,0, 1,1,1 };
+        //Mat kernel(3, 3, CV_8UC1, data1);
+        Mat test_roi_img = dst(roi).clone();
+
+        Mat test_resize_img(50,50, CV_8UC1);
+
+        resize(test_roi_img, test_resize_img, Size(50, 50), 0, 0);
 
 
 
+        //for (int row = 0; row < ori_img.row)
+        //{
 
+        //}
+        */
+        vector<vector<Point>> roi_contours;
+        vector<Vec4i> roi_hierarchy;
+
+        //findContours(resize_img, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
+
+        //Mat im_floodfill = test_bin.clone();
+        //floodFill(im_floodfill, cv::Point(0, 0), Scalar(255));
+        //Mat im_floodfill_inv;
+        //bitwise_not(im_floodfill, im_floodfill_inv);
+        //Mat detect_img_R_fill = (test_bin | im_floodfill_inv);
+    }
+
+    int y = 5;
     return 0;
+}
+int resize_img(Mat &src, Mat &dst, Mat &resize_img)
+{
+    
+
+    vector<vector<Point>> contours;
+    vector<Vec4i> hierarchy;
+
+    //Mat draw_img = test.clone();
+    //cvtColor(test, draw_img, COLOR_GRAY2BGR);
+
+    RNG rng(12345);
+    Rect roi;
+    findContours(src, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
+
+    RotatedRect ellipse = cv::fitEllipse(contours[0]);
+    if (ellipse.angle < 90)
+    {
+        Mat M = getRotationMatrix2D(ellipse.center, ellipse.angle, 1);
+        warpAffine(src, dst, M, Size());
+    }
+    else
+        dst = src.clone();
+
+    threshold(dst, dst, 50, 255, THRESH_BINARY);
+
+    findContours(dst, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
+    roi = cv::boundingRect(contours[0]);
+    Scalar color = Scalar(rng.uniform(0, 256), rng.uniform(0, 256), rng.uniform(0, 256));
+    Mat tmp_resize_img = dst(roi).clone();
+
+    resize(tmp_resize_img, resize_img, Size(50, 50), 0, 0);
+
+    return 1;
 }
 
 
@@ -110,7 +256,6 @@ void ReadMNISTLabel(vector<unsigned char>& arr) {                // 레이블을 읽�
         file.read((char*)&temp, sizeof(temp));
         if (i > 7)
             arr.push_back((unsigned char)temp);
-
     }
 }
 
