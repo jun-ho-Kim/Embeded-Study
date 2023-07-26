@@ -1,10 +1,12 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <filesystem>
 #include <string>
 #include "D:/VisionAI/codes/Common/Common.h"
 
-using namespace std;
+namespace fs = std::filesystem;
+
 int ReverseInt(int i);
 void ReadMNIST(int NumberOfImages, int DataOfAnImage, vector<vector<double>>& arr);
 void ReadMNISTLabel(vector<unsigned char>& arr);
@@ -20,17 +22,153 @@ void MatPrint(std::vector<cv::Mat>& trainingVec, std::vector<cv::uint8_t>& label
 // https://givemesource.tistory.com/1?category=681642
 int main()
 {
+    
+    string fileDir = "D:/Image 모음/MNIST Dataset JPG format/MNIST - JPG - training/";
+    int i;
+  
+    vector<string> filelist[10];
+
+    for (int i = 0; i < 10; i++)
+    {
+        char tmp[5];
+        _itoa_s(i, tmp, 10);
+        string fileName = (fileDir + tmp + "/");
+        printf("fileName is %s ", fileName);
+        for (const auto& entry : fs::directory_iterator(fileName))
+        {
+            if (entry.is_regular_file() && entry.path().extension() == ".jpg" ||
+                entry.is_regular_file() && entry.path().extension() == ".png")
+                filelist[i].push_back(entry.path().string());
+        }
+    }
+
+    fileDir = "D:/Image 모음/MNIST Dataset JPG format/MNIST - JPG - testing/8/";
+    string fileName = fileDir + "61.jpg";
+
+    int idx_max_arr[10] = { 0, };
+    int test_result_arr[10] = { 0, };
+    int max_count = 0;
+
+
+    // 성공률 처리 알고리즘 작성하기
+    string test_fileDir = "D:/Image 모음/MNIST Dataset JPG format/MNIST - JPG - testing/";
+    vector<string> test_filelist[10];
+
+    for (int i = 0; i < 10; i++)
+    {
+        char tmp[5];
+        _itoa_s(i, tmp, 10);
+        string fileName = (test_fileDir + tmp + "/");
+        printf("test fileName is %s ", fileName);
+        for (const auto& entry : fs::directory_iterator(fileName))
+        {
+            if (entry.is_regular_file() && entry.path().extension() == ".jpg" ||
+                entry.is_regular_file() && entry.path().extension() == ".png")
+                test_filelist[i].push_back(entry.path().string());
+        }
+    }
+
+    Mat test_img = imread(fileName, IMREAD_GRAYSCALE);
+    //Mat test_bin;
+    //threshold(test_img, test_bin, 50, 255, THRESH_BINARY);
+    //Mat test_dst;
+    //Mat test_resize_img(50, 50, CV_8UC1);
+    //resize_img(test_bin, test_dst, test_resize_img);
+
+    for (int i = 0; i < 10; i++)
+    {
+        printf("test_filelist[%d] is %d\n", i, test_filelist[i].size());
+    }
+
+
+   // 테스트 이미지//////////////////
+for (int test_i = 7; test_i < 10; test_i++)
+{
+    for (int test_j = 0; test_j < test_filelist[test_i].size(); test_j++)
+    {
+        //int test_data = test_resize_img.data[int(row * 50 + col)];
+        Mat test_img = imread(test_filelist[test_i][test_j], IMREAD_GRAYSCALE);
+        Mat test_bin;
+        threshold(test_img, test_bin, 50, 255, THRESH_BINARY);
+        Mat test_dst;
+        Mat test_resize_img(28, 28, CV_8UC1);
+        resize_img(test_bin, test_dst, test_img);
+        for (int i = 0; i < 10; i++)
+        {
+            int* match_arr = new int[filelist[i].size()]{ 0, };
+            max_count = 0;
+            for (int j = 0; j < filelist[i].size(); j++)
+            {
+                Mat ori_data = imread(filelist[i][j], IMREAD_GRAYSCALE);
+
+                Mat ori_bin;
+                threshold(ori_data, ori_bin, 50, 255, THRESH_BINARY);
+                Mat ori_dst;
+                Mat ori_resize_img(28, 28, CV_8UC1);
+                resize_img(ori_bin, ori_dst, ori_data);
+                //Mat ori_bin;
+                //threshold(ori_data, ori_bin, 50, 255, THRESH_BINARY);
+                //Mat ori_dst;
+                //Mat ori_resize_img(50, 50, CV_8UC1);
+                //resize_img(ori_bin, ori_dst, ori_resize_img);
+                for (size_t row = 0; row < 28; row++)
+                {
+                    for (size_t col = 0; col < 28; col++)
+                    {
+
+                        if ((bool(ori_data.data[row * 28 + col]) == true) && (bool(test_img.data[row * 28 + col]) == true))
+                        {
+                            match_arr[j]++;
+                            //idx_max_arr[i]++;
+                        }
+                    }
+                }
+                if (max_count < match_arr[j])
+                {
+
+                    max_count = match_arr[j];
+                }
+                //idx_max_arr[i] = idx_max_arr[i] / filelist[i].size();
+            }
+
+            delete[]match_arr;
+            idx_max_arr[i] = max_count;
+            int z = 10;
+        }
+        // 성공률 처리 알고리즘 작성하기
+        int max_value = 0;
+        int max_idx = 0;
+        for (int now_idx = 0; now_idx < 10; now_idx++)
+        {
+            if (max_value < idx_max_arr[now_idx])
+            {
+                max_value = idx_max_arr[now_idx];
+                max_idx = now_idx;
+            }
+        }
+        if (test_i == max_idx)
+            test_result_arr[test_i]++;
+
+        printf("tset_i %d, test_j %d end\n", test_i, test_j);
+    }
+ }
+ 
+
+    //string fileDir = "D:/Image 모음/MNIST Dataset JPG format/MNIST - JPG - training/";
+    //Mat ori_bin;
+
+    //Mat ori_img = imread(fileName, IMREAD_GRAYSCALE);
+
+
     int arr_num[10] = { 0, };
-
-
 
     vector<vector<double>> ai;
     vector<unsigned char> al;
     ReadMNIST(10000, 784, ai);                // 훈련데이터를 불러옴
     ReadMNISTLabel(al);                       // 레이블을 읽어 옴
 
-    string fileDir = "D:/0.수업코드/비전과 AI머신러닝/mnist/";
-    string fileName = fileDir + "61.jpg";
+    //string fileDir = "D:/0.수업코드/비전과 AI머신러닝/mnist/";
+    //string fileName = fileDir + "61.jpg";
 
 
     Mat test = imread(fileName, IMREAD_GRAYSCALE);
@@ -38,7 +176,7 @@ int main()
     threshold(test, test_bin, 50, 255, THRESH_BINARY);
 
     string fileName_arr[10] = { "", };
-    int i;
+    //int i = 0;
 
     fileDir = "D:/0.수업코드/비전과 AI머신러닝/mnist/origin_Img/";
 
@@ -84,6 +222,8 @@ int main()
 
         Mat test_dst;
         Mat test_resize_img(50, 50, CV_8UC1);
+        Mat test_add_img(50, 50, CV_8UC1);
+
         resize_img(test_bin, test_dst, test_resize_img);
 
 
@@ -91,7 +231,9 @@ int main()
         threshold(ori_img, ori_bin, 50, 255, THRESH_BINARY);
         Mat ori_dst;
         Mat ori_resize_img(50, 50, CV_8UC1);
-        resize_img(ori_bin, ori_dst, ori_resize_img); \
+        resize_img(ori_bin, ori_dst, ori_resize_img); 
+
+        test_add_img.push_back(ori_resize_img);
 
             for (size_t row = 0; row < 50; row++)
                 for (size_t col = 0; col < 50; col++)
@@ -168,8 +310,6 @@ int main()
 }
 int resize_img(Mat &src, Mat &dst, Mat &resize_img)
 {
-    
-
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
 
@@ -180,7 +320,20 @@ int resize_img(Mat &src, Mat &dst, Mat &resize_img)
     Rect roi;
     findContours(src, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
 
-    RotatedRect ellipse = cv::fitEllipse(contours[0]);
+    RotatedRect ellipse;;
+    int max_contours = 0;
+    int idX_max_contours = 0;
+
+    for (int i = 0; i < contours.size(); i++)
+    {
+        if (max_contours < contours[i].size())
+        {
+            max_contours = contours[i].size();
+            idX_max_contours = i;
+        }
+    }
+
+    ellipse = cv::fitEllipse(contours[idX_max_contours]);
     if (ellipse.angle < 90)
     {
         Mat M = getRotationMatrix2D(ellipse.center, ellipse.angle, 1);
@@ -192,11 +345,11 @@ int resize_img(Mat &src, Mat &dst, Mat &resize_img)
     threshold(dst, dst, 50, 255, THRESH_BINARY);
 
     findContours(dst, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
-    roi = cv::boundingRect(contours[0]);
+    roi = cv::boundingRect(contours[idX_max_contours]);
     Scalar color = Scalar(rng.uniform(0, 256), rng.uniform(0, 256), rng.uniform(0, 256));
     Mat tmp_resize_img = dst(roi).clone();
-
-    resize(tmp_resize_img, resize_img, Size(50, 50), 0, 0);
+    //resize_img = tmp_resize_img;
+    resize(tmp_resize_img, resize_img, Size(28, 28), 0, 0);
 
     return 1;
 }
