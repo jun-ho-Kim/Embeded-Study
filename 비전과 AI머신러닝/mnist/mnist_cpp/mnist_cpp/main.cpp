@@ -79,33 +79,37 @@ int main()
     {
         printf("test_filelist[%d] is %d\n", i, test_filelist[i].size());
     }
+    Mat test_dst;
+    Mat test_resize_img(28, 28, CV_8UC1);
+    Mat test_bin;
 
+    Mat ori_bin;
+    Mat ori_dst;
+    Mat ori_resize_img(28, 28, CV_8UC1);
 
    // 테스트 이미지//////////////////
-for (int test_i = 7; test_i < 10; test_i++)
+for (int test_i =5; test_i < 10; test_i++)
 {
     for (int test_j = 0; test_j < test_filelist[test_i].size(); test_j++)
     {
         //int test_data = test_resize_img.data[int(row * 50 + col)];
         Mat test_img = imread(test_filelist[test_i][test_j], IMREAD_GRAYSCALE);
-        Mat test_bin;
+
         threshold(test_img, test_bin, 50, 255, THRESH_BINARY);
-        Mat test_dst;
-        Mat test_resize_img(28, 28, CV_8UC1);
-        resize_img(test_bin, test_dst, test_img);
+
+        resize_img(test_bin, test_dst, test_resize_img);
         for (int i = 0; i < 10; i++)
         {
+            //printf("i is %d\n", i);
             int* match_arr = new int[filelist[i].size()]{ 0, };
             max_count = 0;
             for (int j = 0; j < filelist[i].size(); j++)
             {
+                //printf("j is %d\n", j);
                 Mat ori_data = imread(filelist[i][j], IMREAD_GRAYSCALE);
 
-                Mat ori_bin;
                 threshold(ori_data, ori_bin, 50, 255, THRESH_BINARY);
-                Mat ori_dst;
-                Mat ori_resize_img(28, 28, CV_8UC1);
-                resize_img(ori_bin, ori_dst, ori_data);
+                resize_img(ori_bin, ori_dst, ori_resize_img);
                 //Mat ori_bin;
                 //threshold(ori_data, ori_bin, 50, 255, THRESH_BINARY);
                 //Mat ori_dst;
@@ -113,19 +117,20 @@ for (int test_i = 7; test_i < 10; test_i++)
                 //resize_img(ori_bin, ori_dst, ori_resize_img);
                 for (size_t row = 0; row < 28; row++)
                 {
+                    //printf("row is %d\n", row);
                     for (size_t col = 0; col < 28; col++)
                     {
-
-                        if ((bool(ori_data.data[row * 28 + col]) == true) && (bool(test_img.data[row * 28 + col]) == true))
+                        //printf("col is %d\n", col);
+                        if ((bool(ori_resize_img.data[row * 28 + col]) == true) && (bool(test_resize_img.data[row * 28 + col]) == true))
                         {
                             match_arr[j]++;
                             //idx_max_arr[i]++;
                         }
                     }
                 }
+
                 if (max_count < match_arr[j])
                 {
-
                     max_count = match_arr[j];
                 }
                 //idx_max_arr[i] = idx_max_arr[i] / filelist[i].size();
@@ -146,8 +151,8 @@ for (int test_i = 7; test_i < 10; test_i++)
                 max_idx = now_idx;
             }
         }
-        if (test_i == max_idx)
-            test_result_arr[test_i]++;
+
+        test_result_arr[max_idx]++;
 
         printf("tset_i %d, test_j %d end\n", test_i, test_j);
     }
@@ -172,7 +177,7 @@ for (int test_i = 7; test_i < 10; test_i++)
 
 
     Mat test = imread(fileName, IMREAD_GRAYSCALE);
-    Mat test_bin;
+    //Mat test_bin;
     threshold(test, test_bin, 50, 255, THRESH_BINARY);
 
     string fileName_arr[10] = { "", };
@@ -226,7 +231,6 @@ for (int test_i = 7; test_i < 10; test_i++)
 
         resize_img(test_bin, test_dst, test_resize_img);
 
-
         Mat ori_bin;
         threshold(ori_img, ori_bin, 50, 255, THRESH_BINARY);
         Mat ori_dst;
@@ -235,16 +239,16 @@ for (int test_i = 7; test_i < 10; test_i++)
 
         test_add_img.push_back(ori_resize_img);
 
-            for (size_t row = 0; row < 50; row++)
-                for (size_t col = 0; col < 50; col++)
+        for (size_t row = 0; row < 50; row++)
+            for (size_t col = 0; col < 50; col++)
+            {
+                int ori_data = ori_resize_img.data[int(row * 50 + col)];
+                int test_data = test_resize_img.data[int(row * 50 + col)];
+                if ((bool(ori_data) ==true) && (bool(test_data) == true))
                 {
-                    int ori_data = ori_resize_img.data[int(row * 50 + col)];
-                    int test_data = test_resize_img.data[int(row * 50 + col)];
-                    if ((bool(ori_data) ==true) && (bool(test_data) == true))
-                    {
-                        arr_num[i] ++;
-                    }
+                    arr_num[i] ++;
                 }
+            }
 
         /*
         RNG rng(12345);
@@ -318,39 +322,42 @@ int resize_img(Mat &src, Mat &dst, Mat &resize_img)
 
     RNG rng(12345);
     Rect roi;
-    findContours(src, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
+    threshold(src, dst, 50, 255, THRESH_BINARY);
+    findContours(dst, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
 
     RotatedRect ellipse;;
     int max_contours = 0;
     int idX_max_contours = 0;
 
-    for (int i = 0; i < contours.size(); i++)
+    if (contours.size() > 0)
     {
-        if (max_contours < contours[i].size())
+        for (int i = 0; i < contours.size(); i++)
         {
-            max_contours = contours[i].size();
-            idX_max_contours = i;
+            if (max_contours < contours[i].size())
+            {
+                max_contours = contours[i].size();
+                idX_max_contours = i;
+            }
         }
-    }
+    } 
 
     ellipse = cv::fitEllipse(contours[idX_max_contours]);
     if (ellipse.angle < 90)
     {
         Mat M = getRotationMatrix2D(ellipse.center, ellipse.angle, 1);
-        warpAffine(src, dst, M, Size());
+        warpAffine(dst, dst, M, Size());
     }
     else
         dst = src.clone();
 
-    threshold(dst, dst, 50, 255, THRESH_BINARY);
-
-    findContours(dst, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
-    roi = cv::boundingRect(contours[idX_max_contours]);
+    //findContours(dst, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
+    //roi = cv::boundingRect(contours[idX_max_contours]);
     Scalar color = Scalar(rng.uniform(0, 256), rng.uniform(0, 256), rng.uniform(0, 256));
-    Mat tmp_resize_img = dst(roi).clone();
-    //resize_img = tmp_resize_img;
-    resize(tmp_resize_img, resize_img, Size(28, 28), 0, 0);
+    //Mat tmp_resize_img = dst(roi).clone();
 
+    //resize_img = tmp_resize_img;
+    //resize(tmp_resize_img, resize_img, Size(28, 28), 0, 0);
+    resize_img = dst;
     return 1;
 }
 
