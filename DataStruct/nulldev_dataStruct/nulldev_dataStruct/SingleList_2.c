@@ -10,11 +10,19 @@ typedef struct NODE {
 } NODE;
 
 // 포인터를 하나 두는 경우
-NODE* g_pHead = NULL;
+NODE* g_head = {0};
+
+int IsEmpty()
+{
+	if (g_head->next == NULL)
+		return 1;
+
+	return 0;
+}
 
 void PrintList(void)
 {
-	NODE* pHead = g_pHead;
+	NODE* pHead = g_head;
 	while (pHead != NULL)
 	{
 		printf("[%p] %s, next[%p]\n", pHead, pHead->szData, pHead->next);
@@ -24,31 +32,46 @@ void PrintList(void)
 	putchar('\n');
 }
 
-int InsertNewNode(char* pszData)
+int InsertAtNode(char* pszData)
 {
 	NODE* pNode = (NODE*)malloc(sizeof(NODE));
 	memset(pNode, 0, sizeof(NODE));
 
 	strcpy_s(pNode->szData, sizeof(pNode->szData), pszData);
 
-	if (g_pHead == NULL)
-		g_pHead = pNode;
+	if (IsEmpty())
+		g_head = pNode;
 	else {
 		// Node를 새로 추가하는 경우 기존에 있던 Node자리에 추가하는 로직
 		// (물론 기존에 있던 Node 뒤에 추가할 수도 있지만 기존에 있던 Node 자리에 추가하는 것이 쉽니다.)
 		// 변수가 Overwrite가 되면 데이터가 유실된다.
 		// 그래서 pHead 변수는 나중에 업데이트 해준다.
 
-		pNode->next = g_pHead;
-		g_pHead = pNode;
+		pNode->next = g_head->next;
+		g_head->next = pNode;
 	}
 
 	return 1;
 }
 
+InsertAtTail(char* pszData)
+{
+	//마지막 노드를 찾는다.
+	NODE* pTmp = &g_head;
+	while (pTmp->next != 0)
+		pTmp = pTmp->next;
+
+	NODE* pNode = (NODE*)malloc(sizeof(NODE));
+	memset(pNode, 0, sizeof(NODE));
+	strcpy_s(pNode->szData, sizeof(pNode->szData), pszData);
+
+	pTmp->next = pNode;
+
+}
+
 void ReleaseList(void)
 {
-	NODE* pTmp = g_pHead;
+	NODE* pTmp = g_head;
 	while (pTmp != NULL)
 	{
 		NODE* pDelete = pTmp;
@@ -63,37 +86,40 @@ void ReleaseList(void)
 // 
 int FindData(char* pszData)
 {
-	NODE* pTmp = g_pHead;
+	NODE* pTmp = g_head->next;
+	NODE* pPrev = &g_head;
+
 	while (pTmp != NULL)
 	{
 		if (strcmp(pTmp->szData, pszData) == 0)
 			return 1;
 		pTmp = pTmp->next;
+		pPrev = pPrev->next;
 	}
 	return 0;
 }
 
 int DeleteData(char* pszData)
 {
-	NODE* pTmp = g_pHead;
+	NODE* pCur = g_head->next;
 	NODE* pPrev = NULL;
-	while (pTmp != NULL)
+	while (pCur != NULL)
 	{
-		if (strcmp(pTmp->szData, pszData) == 0)
+		if (strcmp(pCur->szData, pszData) == 0)
 		{
 			// 삭제
-			printf("DeleteData(): %s\n", pTmp->szData);
+			printf("DeleteData(): %s\n", pCur->szData);
 			if (pPrev != NULL)
 				//todo: 아래 코드 bp 찍어서 테스트해보기("TEST03")
-				pPrev->next = pTmp->next;
+				pPrev->next = pCur->next;
 			else
-				g_pHead = pTmp->next;
+				g_head = pCur->next;
 
-			free(pTmp);
+			free(pCur);
 			return 1;
 		}
-		pPrev = pTmp;
-		pTmp = pTmp->next;
+		pCur = pCur->next;
+		pPrev = pPrev->next;
 	}
 }
 
@@ -102,13 +128,13 @@ int DeleteData(char* pszData)
 int main()
 {
 	//List 테스트를 위한 코드
-	InsertNewNode("TEST01"); 
+	InsertAtNode("TEST01");
 	PrintList(); // [000001E05F6E58A0] TEST01, next[0000000000000000]
-	InsertNewNode("TEST02");
+	InsertAtNode("TEST02");
 	PrintList();
 	//[000001E05F6E33E0] TEST02, next[000001E05F6E58A0]
 	//[000001E05F6E58A0] TEST01, next[0000000000000000]
-	InsertNewNode("TEST03");
+	InsertAtNode("TEST03");
 	PrintList();
 	//[000001E05F6EFE40] TEST03, next[000001E05F6E33E0]
 	//[000001E05F6E33E0] TEST02, next[000001E05F6E58A0]
