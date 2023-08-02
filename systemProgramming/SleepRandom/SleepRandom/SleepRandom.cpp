@@ -34,6 +34,5 @@ int main()
             elapsed % 100 << std::endl;
 
     }
-    
-    std::cout << "Hello World!\n";
+
 }
