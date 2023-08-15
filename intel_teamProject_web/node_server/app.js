@@ -4,8 +4,7 @@ const app = express();
 const cors = require('cors');
 const multer = require("multer");
 const path = require("path");
-const fs = require("fs");
-const router = express.Router();
+
 app.use(cors());
 app.use("/static", express.static(path.join(__dirname, "static")));
 
@@ -18,7 +17,8 @@ const storage = multer.diskStorage({
     },
     filename:function (req, file, cb)
     {
-        cb(null, file.fieldname + '-', Date.now())
+        console.log("file is ", file)
+        cb(null, file.originalname + '-'+ Date.now())
     }
 });
 
@@ -28,22 +28,7 @@ app.get('/', (req, res) =>{
     res.send('Hello World!');
 });
 
-
-app.post('/file', uploads.single('img'), (req, res,next) =>{
-
-    console.log("server uploads is ", uploads)
-
-    console.log("req is ", req)
-/*
-    res.status.send({
-        messege:"OK",
-        fileInfo: req.file
-    })
-    
-
-    */
-   //console.log(req.file);
-   //res.json({ url : `/img/${req.file.filename}`});
+app.post('/file', uploads.single('profile_img'), (req, res,next) =>{
     res.send('Hello World!');
 })
 
