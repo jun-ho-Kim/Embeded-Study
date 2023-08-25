@@ -1,0 +1,50 @@
+1.블루투스 설정 
+아두이노 보드 연결 
+Arduino  bluetooth    
+D0 (TX)  --> RXD
+D1 (RX)  <-- TXD
+             Vcc(5v)
+             GND
+2.시리얼 모니터를 사용해  디비아이스 이름 	변경
+AT 명령
+OK 응답
+
+AT+NAMEbtxx 이름 변경(xx : 01 ~ 25)
+OKname 응답
+
+
+
+3.라즈베리파이 블루투스 페이링 
+pi@pi00:~ $ bluetoothctl
+[bluetooth]# help
+[bluetooth]# scan on   //블루투스 이름을 통한 MAC 주소를 검색
+[CHG] Device 98:D3:11:F8:4A:EA Name: btxx
+
+//pairing 및 인증을 처리하는 agent 활성화
+[bluetooth]# agent on	
+[bluetooth]# default-agent		
+
+[bluetooth]# pair 98:D3:11:F8:4A:EA   ==>PIN Code : 1234 입력
+----------------
+Attempting to pair with 98:D3:11:F8:4A:EA
+[CHG] Device 98:D3:11:F8:4A:EA Connected: yes
+Request PIN code
+[agent] Enter PIN code: 1234
+[CHG] Device 98:D3:11:F8:4A:EA UUIDs: 00001101-0000-1000-8000-00805f9b34fb
+[CHG] Device 98:D3:11:F8:4A:EA ServicesResolved: yes
+[CHG] Device 98:D3:11:F8:4A:EA Paired: yes
+Pairing successful
+  :
+  :
+---------------
+[bluetooth]# scan off
+[bluetooth]# paired-devices
+paired-devices
+Device 98:D3:11:F8:4A:EA iot00
+[bluetooth]# exit
+
+5 블루투스 C 코드 실행 
+mkdir iot_client_bluetooth
+
+chmod u-x iot_client_bluetooth.c
+sudo apt-get install libbluetooth-dev
