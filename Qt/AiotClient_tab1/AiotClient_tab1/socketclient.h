@@ -15,15 +15,13 @@ class SocketClient : public QWidget
 
 private:
     QTcpSocket *pQTcpSocket;
-    QString SERVERIP = "10.10.14.199";
+    QString SERVERIP = "192.168.1.40";
     int SERVERPOT = 5000;
     QString LOGID = "KSH_QT";
     QString LOGPW = "PASSWD";
 public:
-//    QTcpSocket *pQTcpSocket;
 	SocketClient(QWidget *parent = 0, Qt::WindowFlags flags = 0);
 	~SocketClient();
-    QTcpSocket * getpQTcpSocket();
 
 signals:
     void sigSocketRecv(QString);

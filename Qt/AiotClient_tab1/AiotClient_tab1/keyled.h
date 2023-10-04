@@ -7,7 +7,6 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QSocketNotifier>
-#include <QDebug>
 
 class KeyLed : public QWidget
 {

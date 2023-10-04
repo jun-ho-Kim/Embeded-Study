@@ -9,11 +9,11 @@ KeyLed::KeyLed(QWidget *parent) :
     if(!pFile->open(QFile::ReadWrite | QFile::Unbuffered))
     {
         QMessageBox::information(this,"open","open fail : /dev/ledkey_dev");
-//        exit(1);
     }
     keyledFd = pFile->handle();
     pKeyLedNotifier = new QSocketNotifier(keyledFd,QSocketNotifier::Read,this);
     connect(pKeyLedNotifier,SIGNAL(activated(int)),this,SLOT(readKeyData(int)));
+
 }
 void KeyLed::readKeyData(int)
 {
@@ -26,7 +26,6 @@ void KeyLed::readKeyData(int)
 void KeyLed::writeLedData(int no)
 {
     char led = (char)no;
-//    qDebug() << "LED : " << no;
     pFile->write(&led, sizeof(led));
 }
 

@@ -58,6 +58,10 @@ void Tab2SocketClient::socketRecvUpdateSlot(QString strRecvData)
         if(bOk)
             emit ledWriteSig(ledNo);
     }
+    else if((strRecvData.indexOf("LAMP") != -1 ) || (strRecvData.indexOf("GAS") != -1 ))
+    {
+        emit tab3RecvDataSig(strRecvData);
+    }
 }
 
 void Tab2SocketClient::socketSendDataSlot()

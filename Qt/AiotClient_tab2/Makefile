@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = AiotClient1.0.0
-DISTDIR = /srv/nfs/Qt/AiotClient_tab2/.tmp/AiotClient1.0.0
+DISTDIR = /home/ubuntu/qt_examples/AiotClient_tab2_ori/.tmp/AiotClient1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
@@ -407,7 +407,7 @@ compiler_moc_header_clean:
 moc_keyled.cpp: keyled.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /srv/nfs/Qt/AiotClient_tab2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/srv/nfs/Qt/AiotClient_tab2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/arm-linux-gnueabihf/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/arm-linux-gnueabihf/10/include -I/usr/local/include -I/usr/include/arm-linux-gnueabihf -I/usr/include keyled.h -o moc_keyled.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/ubuntu/qt_examples/AiotClient_tab2_ori/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/ubuntu/qt_examples/AiotClient_tab2_ori -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/arm-linux-gnueabihf/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/arm-linux-gnueabihf/10/include -I/usr/local/include -I/usr/include/arm-linux-gnueabihf -I/usr/include keyled.h -o moc_keyled.cpp
 
 moc_mainwidget.cpp: mainwidget.h \
 		tab1devcontrol.h \
@@ -416,24 +416,24 @@ moc_mainwidget.cpp: mainwidget.h \
 		socketclient.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /srv/nfs/Qt/AiotClient_tab2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/srv/nfs/Qt/AiotClient_tab2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/arm-linux-gnueabihf/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/arm-linux-gnueabihf/10/include -I/usr/local/include -I/usr/include/arm-linux-gnueabihf -I/usr/include mainwidget.h -o moc_mainwidget.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/ubuntu/qt_examples/AiotClient_tab2_ori/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/ubuntu/qt_examples/AiotClient_tab2_ori -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/arm-linux-gnueabihf/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/arm-linux-gnueabihf/10/include -I/usr/local/include -I/usr/include/arm-linux-gnueabihf -I/usr/include mainwidget.h -o moc_mainwidget.cpp
 
 moc_socketclient.cpp: socketclient.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /srv/nfs/Qt/AiotClient_tab2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/srv/nfs/Qt/AiotClient_tab2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/arm-linux-gnueabihf/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/arm-linux-gnueabihf/10/include -I/usr/local/include -I/usr/include/arm-linux-gnueabihf -I/usr/include socketclient.h -o moc_socketclient.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/ubuntu/qt_examples/AiotClient_tab2_ori/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/ubuntu/qt_examples/AiotClient_tab2_ori -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/arm-linux-gnueabihf/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/arm-linux-gnueabihf/10/include -I/usr/local/include -I/usr/include/arm-linux-gnueabihf -I/usr/include socketclient.h -o moc_socketclient.cpp
 
 moc_tab1devcontrol.cpp: tab1devcontrol.h \
 		keyled.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /srv/nfs/Qt/AiotClient_tab2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/srv/nfs/Qt/AiotClient_tab2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/arm-linux-gnueabihf/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/arm-linux-gnueabihf/10/include -I/usr/local/include -I/usr/include/arm-linux-gnueabihf -I/usr/include tab1devcontrol.h -o moc_tab1devcontrol.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/ubuntu/qt_examples/AiotClient_tab2_ori/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/ubuntu/qt_examples/AiotClient_tab2_ori -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/arm-linux-gnueabihf/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/arm-linux-gnueabihf/10/include -I/usr/local/include -I/usr/include/arm-linux-gnueabihf -I/usr/include tab1devcontrol.h -o moc_tab1devcontrol.cpp
 
 moc_tab2socketclient.cpp: tab2socketclient.h \
 		socketclient.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /srv/nfs/Qt/AiotClient_tab2/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/srv/nfs/Qt/AiotClient_tab2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/arm-linux-gnueabihf/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/arm-linux-gnueabihf/10/include -I/usr/local/include -I/usr/include/arm-linux-gnueabihf -I/usr/include tab2socketclient.h -o moc_tab2socketclient.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/ubuntu/qt_examples/AiotClient_tab2_ori/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/ubuntu/qt_examples/AiotClient_tab2_ori -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/arm-linux-gnueabihf/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/arm-linux-gnueabihf/10/include -I/usr/local/include -I/usr/include/arm-linux-gnueabihf -I/usr/include tab2socketclient.h -o moc_tab2socketclient.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:

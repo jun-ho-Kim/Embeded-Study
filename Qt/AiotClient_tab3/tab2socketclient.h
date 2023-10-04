@@ -16,13 +16,14 @@ class Tab2SocketClient : public QWidget
 public:
     explicit Tab2SocketClient(QWidget *parent = nullptr);
     ~Tab2SocketClient();
-
+    SocketClient * pSocketClient;
 private:
     Ui::Tab2SocketClient *ui;
-    SocketClient * pSocketClient;
+//    SocketClient * pSocketClient;
 
 signals:
     void ledWriteSig(int);
+    void tab3RecvDataSig(QString);
 
 private slots:
     void connetToServerSlot(bool);

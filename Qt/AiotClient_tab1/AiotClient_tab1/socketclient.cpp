@@ -17,7 +17,7 @@ SocketClient::SocketClient(QWidget *parent, Qt::WindowFlags flags)
 
 
 void SocketClient::slotConnectToServer(bool& ok){
-    //서버 연결 요청
+    //¼­¹ö ¿¬°á ¿äÃ»
     QString strHostIp;
 //	tcpSocket.connectToHost(QHostAddress::LocalHost, 5000);
     strHostIp = QInputDialog::getText(this,"HostIP","Input Server IP:",QLineEdit::Normal,SERVERIP,&ok);
@@ -70,11 +70,6 @@ void SocketClient::slotSocketSendData(QString strSendData)
 //        qDebug() << bCmd;
         pQTcpSocket->write(bCmd);
     }
-}
-
-QTcpSocket * SocketClient::getpQTcpSocket()
-{
-    return pQTcpSocket;
 }
 
 SocketClient::~SocketClient()
