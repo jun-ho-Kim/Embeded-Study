@@ -1,0 +1,138 @@
+ubuntu Master에서
+
+#1번 위치 좌측 상단 좌표값 출력
+ubuntu@ubuntu00:~$  rostopic echo /move_base/goal
+header:
+  seq: 0
+  stamp:
+    secs: 1697430433
+    nsecs: 966805640
+  frame_id: ''
+goal_id:
+  stamp:
+    secs: 0
+    nsecs:         0
+  id: ''
+goal:
+  target_pose:
+    header:
+      seq: 0
+      stamp:
+        secs: 1697430433
+        nsecs: 966406774
+      frame_id: "map"
+    pose:
+      position:
+        x: 0.17769509553909302
+        y: -0.025385048240423203
+        z: 0.0
+      orientation:
+        x: 0.0
+        y: 0.0
+        z: 0.015146227664833862
+        w: 0.9998852893144918
+---
+#2번 위치 좌측 하단
+
+header:
+  seq: 1
+  stamp:
+    secs: 1697430554
+    nsecs: 264734643
+  frame_id: ''
+goal_id:
+  stamp:
+    secs: 0
+    nsecs:         0
+  id: ''
+goal:
+  target_pose:
+    header:
+      seq: 1
+      stamp:
+        secs: 1697430554
+        nsecs: 264507762
+      frame_id: "map"
+    pose:
+      position:
+        x: 9.173230171203613
+        y: -0.14423419535160065
+        z: 0.0
+      orientation:
+        x: 0.0
+        y: 0.0
+        z: 0.7180650492230565
+        w: 0.6959759946178384
+---
+#2번 위치 우측 하단
+header:
+  seq: 2
+  stamp:
+    secs: 1697430640
+    nsecs: 161446082
+  frame_id: ''
+goal_id:
+  stamp:
+    secs: 0
+    nsecs:         0
+  id: ''
+goal:
+  target_pose:
+    header:
+      seq: 2
+      stamp:
+        secs: 1697430640
+        nsecs: 161186391
+      frame_id: "map"
+    pose:
+      position:
+        x: 9.086690902709961
+        y: 3.0577423572540283
+        z: 0.0
+      orientation:
+        x: 0.0
+        y: 0.0
+        z: 0.9999999999999971
+        w: 7.549789954891874e-08
+---
+#2번 위치 우측 상단
+header:
+  seq: 3
+  stamp:
+    secs: 1697430696
+    nsecs: 388484579
+  frame_id: ''
+goal_id:
+  stamp:
+    secs: 0
+    nsecs:         0
+  id: ''
+goal:
+  target_pose:
+    header:
+      seq: 3
+      stamp:
+        secs: 1697430696
+        nsecs: 388093180
+      frame_id: "map"
+    pose:
+      position:
+        x: 0.08654019236564636
+        y: 3.08659029006958
+        z: 0.0
+      orientation:
+        x: 0.0
+        y: 0.0
+        z: -0.7071067966408575
+        w: 0.7071067657322372
+---
+==================================================
+2번 목표좌표 이동
+$ rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped '{header: {stamp: now, frame_id: "map"}, pose: {position: { x: 9.173230171203613, y: -0.14423419535160065, z: 0.0}, orientation: { w: 0.6959759946178384}}}'
+
+4번 목표좌표 이동
+$ rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped '{header: {stamp: now, frame_id: "map"}, pose: {position: { x: 0.08654019236564636, y: 3.08659029006958, z: 0.0}, orientation: { w: 0.7071067657322372}}}'
+
+http://wiki.ros.org/navigation/Tutorials/SendingSimpleGoals
+https://github.com/kuoshih/simple_navigation_goals   #turtlebot3 example
+$rosrun simple_navigation_goals simple_navigation_goals
