@@ -1,0 +1,39 @@
+===========usb webcam 연결 후============
+turtlebot3 설치 
+$ sudo apt install ros-noetic-cv-camera
+$ rosrun cv_camera cv_camera_node
+
+ubuntu Master 
+$ rqt_image_view #실행후 /cv_camera/image_raw 선택
+
+=============pi cam 연결 후===================
+pi cam 연결 후
+$ /boot/firmware/config.txt 파일에 추가
+-----------------------------------
+start_x=1
+gpu_mem=512
+------------------------------------
+$ sudo apt install libraspberrypi-bin   //raspistill 설치 후 재 부팅
+$ raspistill -v -o test.jpg             //이미지 캡쳐 테스트 확인
+$ sudo apt install libraspberrypi-dev libraspberrypi0 libpigpiod-if-dev
+$ sudo apt install ros-noetic-compressed-image-transport ros-noetic-camera-info-manager ros-noetic-diagnostic-updater
+
+라즈베라피이 현재 swap 메모리 추가 확인
+$ sudo swapon --show  #목록 없음
+
+$ sudo fallocate -l 1G /swapfile
+$ sudo chmod 600 /swapfile
+$ sudo mkswap /swapfile
+$ sudo swapon --show
+NAME      TYPE SIZE  USED PRIO
+/swapfile file   2G 15.3M   -2
+
+$ cd ~/catkin_ws/src/
+$ git clone https://github.com/UbiquityRobotics/raspicam_node  #raspicam_node 설치
+$ cd ../
+$ catkin_make		#빌드
+
+$roslaunch turtlebot3_bringup turtlebot3_rpicamera.launch  	#pi cam launch 실행
+
+ubuntu Master에서
+$ rqt_image_view     #실행후 /raspicam_node/image/compressed 선택 후 확인 완료
